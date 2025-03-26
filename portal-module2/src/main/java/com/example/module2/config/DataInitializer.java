@@ -1,7 +1,7 @@
 package com.example.module2.config;
 
-import com.example.module2.entity.Post;
-import com.example.module2.repository.PostRepository;
+import com.example.module2.entity.Board;
+import com.example.module2.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
@@ -15,12 +15,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DataInitializer {
 
-    private final PostRepository postRepository;
+    private final BoardRepository boardRepository;
 
     @Bean
     public CommandLineRunner initData() {
         return args -> {
-            if (postRepository.count() == 0) {
+            if (boardRepository.count() == 0) {
                 List<String> titles = Arrays.asList(
                     "스프링부트 게시판 만들기",
                     "JPA를 활용한 데이터베이스 설계",
@@ -35,16 +35,15 @@ public class DataInitializer {
                 );
 
                 for (int i = 0; i < 50; i++) {
-                    Post post = new Post();
-                    post.setTitle(titles.get(i % titles.size()) + " - " + (i + 1));
-                    post.setContent("이것은 샘플 게시글 " + (i + 1) + "입니다.\n\n" +
+                    Board board = new Board();
+                    board.setTitle(titles.get(i % titles.size()) + " - " + (i + 1));
+                    board.setContent("이것은 샘플 게시글 " + (i + 1) + "입니다.\n\n" +
                             "여기에 다양한 내용이 들어갈 수 있습니다.\n" +
                             "스프링부트와 JPA를 활용한 게시판 구현 예제입니다.\n" +
                             "타임리프와 부트스트랩을 사용하여 예쁜 UI를 구현했습니다.");
-                    post.setAuthor("작성자" + ((i % 5) + 1));
-                    post.setCreatedAt(LocalDateTime.now().minusDays(i));
-                    post.setViewCount((long) (Math.random() * 1000));
-                    postRepository.save(post);
+                    board.setName("작성자" + ((i % 5) + 1));
+                    board.setCreatedAt(LocalDateTime.now().minusDays(i));
+                    boardRepository.save(board);
                 }
             }
         };

@@ -1,5 +1,6 @@
 package com.example.module2.entity;
 
+import com.example.module1.entity.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,27 +12,29 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
-@Table(name = "posts")
-public class Post {
+@Table(name = "board")
+public class Board {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "name", referencedColumnName = "name")
+    private Account account;
 
     @Column(nullable = false, length = 100)
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String content;
-
-    @Column(nullable = false, length = 50)
-    private String author;
+    private String content;  // content 컬럼은 TEXT 타입으로 정의
 
     @CreationTimestamp
+    @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
-    @Column(nullable = false)
-    private Long viewCount = 0L;
-} 
+}
