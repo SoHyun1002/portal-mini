@@ -1,6 +1,5 @@
 package com.example.module2.entity;
 
-import com.example.module1.entity.Account;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,9 +18,8 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "name", referencedColumnName = "name")
-    private Account account;
+    @Column(nullable = false, length = 100)
+    private String name;  // Account의 name을 저장하지만 FK 제약 조건 없음
 
     @Column(nullable = false, length = 100)
     private String title;
