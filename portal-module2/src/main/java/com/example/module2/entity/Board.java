@@ -27,7 +27,7 @@ public class Board {
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
-    private String content;  // content 컬럼은 TEXT 타입으로 정의
+    private String content;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
